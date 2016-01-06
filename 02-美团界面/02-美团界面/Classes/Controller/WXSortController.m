@@ -54,7 +54,7 @@
         WXSortItem *item = self.sortArray[i];
         // 1.2 设置button的tag和title,titleColor,设置按钮背景
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.tag = item.value.integerValue;
+        button.tag = i;
         [button setTitle:item.label forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:@"btn_filter_normal"] forState:UIControlStateNormal];

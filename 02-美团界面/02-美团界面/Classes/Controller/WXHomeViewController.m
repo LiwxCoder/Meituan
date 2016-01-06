@@ -53,7 +53,7 @@
 {
     // 1.创建美团logo
     UIBarButtonItem *logoItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_meituan_logo"] style:UIBarButtonItemStyleDone target:nil action:nil];
-    // 设置让logoItem不能点击
+    // SINGLE: 设置让logoItem不能点击,需在Assets将图片设置为不渲染,Render设置为Original Image
     logoItem.enabled = NO;
     
     // 2.创建分类的item
@@ -178,9 +178,6 @@
     // 3.退出popover后让顶部按钮可点击
     [self enabled];
 }
-
-
-
 
 #pragma mark - Event
 - (void)categoryClick {
