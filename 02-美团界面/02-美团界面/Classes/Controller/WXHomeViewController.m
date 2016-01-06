@@ -8,15 +8,21 @@
 
 #import "WXHomeViewController.h"
 #import "WXTopView.h"
+#import "WXCategoryController.h"
 
 @interface WXHomeViewController ()
 
+#pragma mark - subViews
 /** 分类的Item*/
-@property (nonatomic ,weak)UIBarButtonItem *categoryItem;
+@property (nonatomic ,weak) UIBarButtonItem *categoryItem;
 /** 区域的Item*/
-@property (nonatomic ,weak)UIBarButtonItem *districtItem;
+@property (nonatomic ,weak) UIBarButtonItem *districtItem;
 /** 排序的Item*/
-@property (nonatomic ,weak)UIBarButtonItem *sortItem;
+@property (nonatomic ,weak) UIBarButtonItem *sortItem;
+
+#pragma mark - popover
+/** 分类内容的控制器 */
+@property (nonatomic, strong) WXCategoryController *categoryVc;
 
 @end
 
@@ -71,7 +77,12 @@
 
 #pragma mark - Event
 - (void)categoryClick {
-    NSLog(@"%s",__func__);
+    
+    // 1.指定popover弹出的位置为self.categoryItem的位置
+    self.categoryVc.popoverPresentationController.barButtonItem = self.categoryItem;
+    
+    // 2.弹出popover
+    [self presentViewController:self.categoryVc animated:YES completion:nil];
 }
 
 - (void)districtClick {
@@ -82,6 +93,18 @@
     NSLog(@"%s",__func__);
 }
 
+#pragma mark - Lazy Load
+- (WXCategoryController *)categoryVc
+{
+    if (_categoryVc == nil) {
+        // 1.创建分类内容的控制器
+        _categoryVc = [[WXCategoryController alloc] init];
+        
+        // 2.设置Modal方式弹出分类内容控制器的样式
+        _categoryVc.modalPresentationStyle = UIModalPresentationPopover;
+    }
+    return _categoryVc;
+}
 
 
 @end

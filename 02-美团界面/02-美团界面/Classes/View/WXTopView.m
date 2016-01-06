@@ -31,11 +31,13 @@
 {
     self.titleLabel.text = title;
 }
+
 /** 设置子标题 */
 - (void)setSubtitle:(NSString *)subTitle
 {
     self.subTitleLabel.text = subTitle;
 }
+
 /** 设置普通/选中高亮状态的图标 */
 - (void)setIcon:(NSString *)icon highIcon:(NSString *)highIcon
 {
