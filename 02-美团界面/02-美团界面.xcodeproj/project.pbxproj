@@ -27,6 +27,7 @@
 		D9FDF99E1C3CC58500458AAF /* categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9FDF99B1C3CC58500458AAF /* categories.plist */; };
 		D9FDF99F1C3CC58500458AAF /* gz.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9FDF99C1C3CC58500458AAF /* gz.plist */; };
 		D9FDF9A01C3CC58500458AAF /* sorts.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9FDF99D1C3CC58500458AAF /* sorts.plist */; };
+		D9FDF9A31C3CD2DF00458AAF /* WXCategoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FDF9A21C3CD2DF00458AAF /* WXCategoryItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,8 @@
 		D9FDF99B1C3CC58500458AAF /* categories.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = categories.plist; sourceTree = "<group>"; };
 		D9FDF99C1C3CC58500458AAF /* gz.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gz.plist; sourceTree = "<group>"; };
 		D9FDF99D1C3CC58500458AAF /* sorts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sorts.plist; sourceTree = "<group>"; };
+		D9FDF9A11C3CD2DF00458AAF /* WXCategoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXCategoryItem.h; sourceTree = "<group>"; };
+		D9FDF9A21C3CD2DF00458AAF /* WXCategoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXCategoryItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +219,8 @@
 		D9FDF9791C3CA1C700458AAF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D9FDF9A11C3CD2DF00458AAF /* WXCategoryItem.h */,
+				D9FDF9A21C3CD2DF00458AAF /* WXCategoryItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -451,6 +456,7 @@
 				D9FDF9991C3CC25300458AAF /* WXRightCell.m in Sources */,
 				D9FDF9831C3CA28100458AAF /* WXHomeViewController.m in Sources */,
 				D9FDF9911C3CB86900458AAF /* WXLRTableView.m in Sources */,
+				D9FDF9A31C3CD2DF00458AAF /* WXCategoryItem.m in Sources */,
 				D9FDF98E1C3CB0DD00458AAF /* WXCategoryController.m in Sources */,
 				D9FDF9861C3CA2A800458AAF /* WXNavViewController.m in Sources */,
 			);

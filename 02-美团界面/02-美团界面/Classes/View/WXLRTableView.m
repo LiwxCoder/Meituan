@@ -16,6 +16,12 @@
 @property (weak, nonatomic) IBOutlet UITableView *leftTableView;
 @property (weak, nonatomic) IBOutlet UITableView *rightTableView;
 
+#pragma mark - 属性
+/** 左边leftTableView当前选中行 */
+@property (nonatomic, assign) NSInteger selectedLeftRow;
+/** 子标题数组 */
+@property (nonatomic, strong) NSArray *subTitles;
+
 @end
 
 @implementation WXLRTableView
@@ -51,15 +57,15 @@
     self.rightTableView.delegate = self;
 }
 
-// TODO: 写到这里
-
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == self.leftTableView) {
-        return 10;
+        // 返回左边leftTableView的总行数
+        return [self.dataSource numOfRowsInLeftTableView:self];
     }else {
-        return 5;
+        // 返回右边rightTableView的总行数
+        return self.subTitles.count;
     }
 }
 
@@ -68,13 +74,36 @@
     UITableViewCell *cell = nil;
     
     if (tableView == self.leftTableView) {
+        // 设置左边cell的数据
         cell = [WXLeftCell leftCellWithTableView:tableView];
-        cell.textLabel.text = [NSString stringWithFormat:@"%ld. 左边cell", indexPath.row];
+        NSString *title = [self.dataSource lrTableView:self titleInLeftRow:indexPath.row];
+        cell.textLabel.text = title;
     }else {
+        // 设置右边cell的数据
         cell = [WXRightCell rightCellWithTableView:tableView];
-        cell.textLabel.text = [NSString stringWithFormat:@"%ld. 右边cell", indexPath.row];
+        cell.textLabel.text = self.subTitles[indexPath.row];
     }
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.leftTableView) {
+        // 1.记录左边leftTableView选中行
+        self.selectedLeftRow = indexPath.row;
+        // 2.获取当前选中行的子标题数据
+        self.subTitles = [self.dataSource lrTableView:self subTitleInLeftRow:indexPath.row];
+        // 3.刷新右边rightTableView的数据
+        [self.rightTableView reloadData];
+        // 4.调用选中的代理方法
+        if ([self.delegate respondsToSelector:@selector(lrTableView:selectedLeftRow:)]) {
+            [self.delegate lrTableView:self selectedLeftRow:indexPath.row];
+        }
+        
+    }else {
+        // 右侧点击退出
+        NSLog(@"点击了rightTableView: %ld. %@", indexPath.row, self.subTitles[indexPath.row]);
+    }
 }
 
 @end

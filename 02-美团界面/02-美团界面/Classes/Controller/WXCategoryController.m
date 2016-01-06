@@ -8,8 +8,13 @@
 
 #import "WXCategoryController.h"
 #import "WXLRTableView.h"
+#import "WXCategoryItem.h"
+#import <MJExtension.h>
 
-@interface WXCategoryController ()
+@interface WXCategoryController () <WXLRTableViewDataSource, WXLRTableViewDataDelegate>
+
+/** 分类数据源数组 */
+@property (nonatomic, strong) NSArray *categoryDatas;
 
 @end
 
@@ -32,6 +37,42 @@
     lrTableView.frame = self.view.bounds;
     lrTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:lrTableView];
+    
+    // 设置数据源,代理
+    lrTableView.dataSource = self;
+    lrTableView.delegate = self;
+}
+
+#pragma mark - <WXLRTableViewDataSource, WXLRTableViewDataDelegate>
+
+/** 返回左边leftTableView共多少行*/
+- (NSInteger)numOfRowsInLeftTableView:(WXLRTableView *)lrTableView
+{
+    return self.categoryDatas.count;
+}
+
+/** 返回左边第leftRow行的标题 */
+- (NSString *)lrTableView:(WXLRTableView *)lrTableView titleInLeftRow:(NSInteger)leftRow
+{
+    WXCategoryItem *item = self.categoryDatas[leftRow];
+    return item.name;
+}
+
+/** 返回左边第leftRow行的子标题 */
+- (NSArray *)lrTableView:(WXLRTableView *)lrTableView subTitleInLeftRow:(NSInteger)leftRow
+{
+    WXCategoryItem *item = self.categoryDatas[leftRow];
+    return item.subcategories;
+}
+
+
+#pragma mark Lazy Load
+- (NSArray *)categoryDatas
+{
+    if (_categoryDatas == nil) {
+        _categoryDatas = [WXCategoryItem mj_objectArrayWithFilename:@"categories.plist"];
+    }
+    return _categoryDatas;
 }
 
 @end
