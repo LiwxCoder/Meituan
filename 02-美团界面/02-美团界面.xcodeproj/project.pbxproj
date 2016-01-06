@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3DC1816708101E8E5D8E6A77 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 018129ED8F92FF7030C9C628 /* libPods.a */; };
+		D9DC88981C3D04C8007A2786 /* WXSortItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DC88971C3D04C8007A2786 /* WXSortItem.m */; };
+		D9DC889B1C3D0524007A2786 /* WXSortController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DC889A1C3D0524007A2786 /* WXSortController.m */; };
 		D9FDF94F1C3CA16B00458AAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9FDF94D1C3CA16B00458AAF /* Main.storyboard */; };
 		D9FDF9511C3CA16B00458AAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9FDF9501C3CA16B00458AAF /* Assets.xcassets */; };
 		D9FDF9541C3CA16B00458AAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9FDF9521C3CA16B00458AAF /* LaunchScreen.storyboard */; };
@@ -54,6 +56,10 @@
 		018129ED8F92FF7030C9C628 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		20C08D88638A0DCA3DA2BEC6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8DFA3540278223521661DCE9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		D9DC88961C3D04C8007A2786 /* WXSortItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSortItem.h; sourceTree = "<group>"; };
+		D9DC88971C3D04C8007A2786 /* WXSortItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSortItem.m; sourceTree = "<group>"; };
+		D9DC88991C3D0524007A2786 /* WXSortController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSortController.h; sourceTree = "<group>"; };
+		D9DC889A1C3D0524007A2786 /* WXSortController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSortController.m; sourceTree = "<group>"; };
 		D9FDF9411C3CA16B00458AAF /* 02-美团界面.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "02-美团界面.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9FDF94E1C3CA16B00458AAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D9FDF9501C3CA16B00458AAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -223,6 +229,8 @@
 				D9FDF98D1C3CB0DD00458AAF /* WXCategoryController.m */,
 				D9FDF9AA1C3CF5CB00458AAF /* WXDistrictController.h */,
 				D9FDF9AB1C3CF5CB00458AAF /* WXDistrictController.m */,
+				D9DC88991C3D0524007A2786 /* WXSortController.h */,
+				D9DC889A1C3D0524007A2786 /* WXSortController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -234,6 +242,8 @@
 				D9FDF9A21C3CD2DF00458AAF /* WXCategoryItem.m */,
 				D9FDF9A71C3CF58400458AAF /* WXDistrictItem.h */,
 				D9FDF9A81C3CF58400458AAF /* WXDistrictItem.m */,
+				D9DC88961C3D04C8007A2786 /* WXSortItem.h */,
+				D9DC88971C3D04C8007A2786 /* WXSortItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -469,10 +479,12 @@
 				D9FDF9AC1C3CF5CB00458AAF /* WXDistrictController.m in Sources */,
 				D9FDF9A61C3CED2D00458AAF /* WXConst.m in Sources */,
 				D9FDF9961C3CC24600458AAF /* WXLeftCell.m in Sources */,
+				D9DC88981C3D04C8007A2786 /* WXSortItem.m in Sources */,
 				D9FDF9891C3CA4E100458AAF /* WXTopView.m in Sources */,
 				D9FDF97F1C3CA1C700458AAF /* AppDelegate.m in Sources */,
 				D9FDF9991C3CC25300458AAF /* WXRightCell.m in Sources */,
 				D9FDF9831C3CA28100458AAF /* WXHomeViewController.m in Sources */,
+				D9DC889B1C3D0524007A2786 /* WXSortController.m in Sources */,
 				D9FDF9911C3CB86900458AAF /* WXLRTableView.m in Sources */,
 				D9FDF9A31C3CD2DF00458AAF /* WXCategoryItem.m in Sources */,
 				D9FDF98E1C3CB0DD00458AAF /* WXCategoryController.m in Sources */,

@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor redColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     [self setupLRTableView];
 }
@@ -104,8 +104,6 @@
                            };
     [[NSNotificationCenter defaultCenter] postNotificationName:WXCategoryNotification object:nil userInfo:dict];
 }
-
-
 
 #pragma mark Lazy Load
 - (NSArray *)categoryDatas

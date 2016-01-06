@@ -9,6 +9,7 @@
 #import "WXDistrictController.h"
 #import "WXDistrictItem.h"
 #import "WXLRTableView.h"
+#import "WXConst.h"
 #import <MJExtension.h>
 
 @interface WXDistrictController () <WXLRTableViewDataSource, WXLRTableViewDataDelegate>
@@ -69,13 +70,28 @@
 /** 点击右边告诉代理左边点击了第几行,右边点击了第几行 */
 - (void)lrTableView:(WXLRTableView *)lrTableView selectedLeftRow:(NSInteger)leftRow
 {
-    NSLog(@"selectedLeftRow");
+    // 1.取出数据,传递给外部控制器,用来设置导航条区域Item的图标,标题,子标题
+    WXDistrictItem *item = self.districtArray[leftRow];
+    if (item.subregions.count == 0) {
+        // 2.发送通知
+        NSDictionary *dict = @{WXDistrictNotificationKey : item};
+        [[NSNotificationCenter defaultCenter] postNotificationName:WXDistrictNotification object:nil userInfo:dict];
+    }
 }
 
 /** 点击左边告诉代理左边点击了第几行 */
 - (void)lrTableView:(WXLRTableView *)lrTableView selectedLeftRow:(NSInteger)leftRow selectedRightRow:(NSInteger)rightRow
 {
-    NSLog(@"selectedLeftRow:selectedRightRow:");
+    // 1.取出数据,传递给外部控制器,用来设置导航条区域Item的图标,标题,子标题
+    WXDistrictItem *item = self.districtArray[leftRow];
+    NSString *subTitle = item.subregions[rightRow];
+    // 2.发送通知
+    NSDictionary *dict = @{
+                           WXDistrictNotificationKey : item,
+                           WXSubDistrictNotificationKey : subTitle
+                           };
+    [[NSNotificationCenter defaultCenter] postNotificationName:WXDistrictNotification object:nil userInfo:dict];
+    
 }
 
 #pragma mark - Lazy Load

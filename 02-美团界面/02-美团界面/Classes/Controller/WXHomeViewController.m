@@ -12,8 +12,11 @@
 #import "WXConst.h"
 #import "WXCategoryItem.h"
 #import "WXDistrictController.h"
+#import "WXDistrictItem.h"
+#import "WXSortController.h"
+#import "WXSortItem.h"
 
-@interface WXHomeViewController ()
+@interface WXHomeViewController () <UIPopoverPresentationControllerDelegate>
 
 #pragma mark - subViews
 /** 分类的Item*/
@@ -28,6 +31,8 @@
 @property (nonatomic, strong) WXCategoryController *categoryVc;
 /** 区域内容的控制器 */
 @property (nonatomic, strong) WXDistrictController *districtVc;
+/** 排序内容的控制器 */
+@property (nonatomic, strong) WXSortController *sortVc;
 
 @end
 
@@ -95,6 +100,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sortNoti:) name:WXSortNotification object:nil];
 }
 
+- (void)dealloc
+{
+    // 移除通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - 退出popover的通知
 /** 分类通知 */
 - (void)categoryNoti:(NSNotification *)noti {
@@ -119,16 +130,53 @@
     
     // 2.退出popover
     [self.categoryVc dismissViewControllerAnimated:YES completion:nil];
+    
+    // 3.退出popover后让顶部按钮可点击
+    [self enabled];
 }
 
 /** 区域通知 */
 - (void)districtNoti:(NSNotification *)noti {
-    NSLog(@"districtNoti");
+    
+    // 1.更新districtItem的图标和标题
+    // 1.1 取出数据, 取出标题子标题和图标数据
+    WXDistrictItem *item = noti.userInfo[WXDistrictNotificationKey];
+    NSString *districtSubTitle = noti.userInfo[WXSubDistrictNotificationKey];
+    
+    // 1.2 获取通知发送者传递过来的数据
+    WXTopView *districtTopView = self.districtItem.customView;
+    // 1.3 判断是否有子标题
+    if (item.subregions.count == 0) {
+        [districtTopView setTitle:@"广州"];
+        [districtTopView setSubtitle:item.name];
+    }else {
+        [districtTopView setTitle:item.name];
+        [districtTopView setSubtitle:districtSubTitle];
+    }
+    
+    // 2.退出popover
+    [self.districtVc dismissViewControllerAnimated:YES completion:nil];
+    
+    // 3.退出popover后让顶部按钮可点击
+    [self enabled];
 }
 
 /** 排序通知 */
 - (void)sortNoti:(NSNotification *)noti {
-    NSLog(@"sortNoti");
+    
+    // 1.更新districtItem的文字
+    // 1.1 取出传递过来的数据
+    WXSortItem *item = noti.userInfo[WXSortNotificationKey];
+    
+    // 1.2 更新显示的文字
+    WXTopView *sortTopView = self.sortItem.customView;
+    [sortTopView setSubtitle:item.label];
+    
+    // 2. 退出popover
+    [self.sortVc dismissViewControllerAnimated:YES completion:nil];
+    
+    // 3.退出popover后让顶部按钮可点击
+    [self enabled];
 }
 
 
@@ -142,18 +190,64 @@
     
     // 2.弹出popover
     [self presentViewController:self.categoryVc animated:YES completion:nil];
+    
+    // CARE: popover消失后,会自动清空代理属性,所以不能再懒加载中设置代理
+    // 3.设置代理,用于监听popover退出时,让顶部的按钮可点击
+    self.categoryVc.popoverPresentationController.delegate = self;
+    
+    // 4.让顶部按钮不可点击
+    [self disabled];
 }
 
 - (void)districtClick {
-    // 1.指定popover弹出的位置为self.categoryItem的位置
+    // 1.指定popover弹出的位置为self.districtItem的位置
     self.districtVc.popoverPresentationController.barButtonItem = self.districtItem;
     
     // 2.弹出popover
     [self presentViewController:self.districtVc animated:YES completion:nil];
+    
+    // 3.设置代理,用于监听popover退出时,让顶部的按钮可点击,需遵守UIPopoverPresentationControllerDelegate协议
+    self.districtVc.popoverPresentationController.delegate = self;
+    
+    // 4.让顶部按钮不可点击
+    [self disabled];
 }
 
 - (void)sortClick {
-    NSLog(@"%s",__func__);
+    // 1.指定popover弹出的位置为self.sortItem的位置
+    self.sortVc.popoverPresentationController.barButtonItem = self.sortItem;
+    
+    // 2.弹出popover
+    [self presentViewController:self.sortVc animated:YES completion:nil];
+    
+    // 3.设置代理,用于监听popover退出时,让顶部的按钮可点击,需遵守UIPopoverPresentationControllerDelegate协议
+    self.sortVc.popoverPresentationController.delegate = self;
+    
+    // 4.让顶部按钮不可点击
+    [self disabled];
+}
+
+#pragma mark - 设置enabled 属性
+- (void)enabled {
+    self.categoryItem.enabled = YES;
+    self.districtItem.enabled = YES;
+    self.sortItem.enabled = YES;
+}
+
+- (void)disabled {
+    self.categoryItem.enabled = NO;
+    self.districtItem.enabled = NO;
+    self.sortItem.enabled = NO;
+}
+
+#pragma mark - UIPopoverPresentationControllerDelegate
+// SINGLE: popover消失时会调用popoverPresentationControllerDidDismissPopover方法,需遵守UIPopoverPresentationControllerDelegate协议,
+// CARE: 仅在点击空白处,popov消失的时候才会调用,调用dismissViewControllerAnimated让popover消失不会调用该方法
+/** popover消失时会调用, 注意:仅在点击空白处,popov消失的时候才会调用*/
+- (void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
+{
+    // 让顶部按钮可点击
+    [self enabled];
 }
 
 #pragma mark - Lazy Load
@@ -180,5 +274,18 @@
     }
     return _districtVc;
 }
+
+- (WXSortController *)sortVc
+{
+    if (_sortVc == nil) {
+        // 1.创建区域内容的控制器
+        _sortVc = [[WXSortController alloc] init];
+        
+        // 2.设置Modal方式弹出分类内容控制器的样式
+        _sortVc.modalPresentationStyle = UIModalPresentationPopover;
+    }
+    return _sortVc;
+}
+
 
 @end
