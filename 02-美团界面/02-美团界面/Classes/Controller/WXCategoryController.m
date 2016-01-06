@@ -9,6 +9,7 @@
 #import "WXCategoryController.h"
 #import "WXLRTableView.h"
 #import "WXCategoryItem.h"
+#import "WXConst.h"
 #import <MJExtension.h>
 
 @interface WXCategoryController () <WXLRTableViewDataSource, WXLRTableViewDataDelegate>
@@ -64,6 +65,46 @@
     WXCategoryItem *item = self.categoryDatas[leftRow];
     return item.subcategories;
 }
+
+/** 返回左边某行显示的普通图标 */
+- (NSString *)lrTableView:(WXLRTableView *)lrTableView iconInLeftRow:(NSInteger)leftRow
+{
+    WXCategoryItem *item = self.categoryDatas[leftRow];
+    return item.small_icon;
+}
+/** 返回左边某行显示的高亮图标 */
+- (NSString *)lrTableView:(WXLRTableView *)lrTableView highIconInLeftRow:(NSInteger)leftRow
+{
+    WXCategoryItem *item = self.categoryDatas[leftRow];
+    return item.small_highlighted_icon;
+}
+
+/** 点击左边告诉代理左边点击了第几行 */
+- (void)lrTableView:(WXLRTableView *)lrTableView selectedLeftRow:(NSInteger)leftRow;
+{
+    // 判断左边当前选中行是否有子标题,若无子标题,发送通知,让通知监听者退出popover
+    WXCategoryItem *categoryItem = self.categoryDatas[leftRow];
+    if (categoryItem.subcategories.count == 0) {
+        // 发送通知,传递数据用于刷新顶部CategoryItem的图标和文字
+        NSDictionary *dict = @{WXCategoryNotificationKey : categoryItem};
+        [[NSNotificationCenter defaultCenter] postNotificationName:WXCategoryNotification object:nil userInfo:dict];
+    }
+}
+
+/** 点击右边告诉代理左边点击了第几行,右边点击了第几行 */
+- (void)lrTableView:(WXLRTableView *)lrTableView selectedLeftRow:(NSInteger)leftRow selectedRightRow:(NSInteger)rightRow
+{
+    // 取出数据
+    WXCategoryItem *categoryItem = self.categoryDatas[leftRow];
+    NSString *categorySubTitle = categoryItem.subcategories[rightRow];
+    // 发送通知,传递数据用于刷新顶部CategoryItem的图标和文字
+    NSDictionary *dict = @{
+                           WXCategoryNotificationKey : categoryItem,
+                           WXSubCategoryNotificationKey : categorySubTitle
+                           };
+    [[NSNotificationCenter defaultCenter] postNotificationName:WXCategoryNotification object:nil userInfo:dict];
+}
+
 
 
 #pragma mark Lazy Load

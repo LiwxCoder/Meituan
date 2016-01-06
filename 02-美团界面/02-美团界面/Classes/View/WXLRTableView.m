@@ -55,9 +55,14 @@
     self.rightTableView.dataSource = self;
     self.leftTableView.delegate = self;
     self.rightTableView.delegate = self;
+    
+    // SINGLE: 取消分割线
+    self.leftTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.rightTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate
+// REMARKS: 双TableView的仿系统TableView实现(由外部提供数据源,并通过代理实现外部监听TableView的操作)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == self.leftTableView) {
@@ -77,7 +82,21 @@
         // 设置左边cell的数据
         cell = [WXLeftCell leftCellWithTableView:tableView];
         NSString *title = [self.dataSource lrTableView:self titleInLeftRow:indexPath.row];
+        
+        // 设置cell的文字
         cell.textLabel.text = title;
+        // 设置cell的图标
+        if ([self.dataSource respondsToSelector:@selector(lrTableView:iconInLeftRow:)]) {
+            NSString *iconName = [self.dataSource lrTableView:self iconInLeftRow:indexPath.row];
+            cell.imageView.image = [UIImage imageNamed:iconName];
+        }
+        // 设置cell选中时显示的图标
+        if ([self.dataSource respondsToSelector:@selector(lrTableView:highIconInLeftRow:)]) {
+            NSString *highIconName = [self.dataSource lrTableView:self highIconInLeftRow:indexPath.row];
+            // SINGLE: 设置cell选中时的图标
+            cell.imageView.highlightedImage = [UIImage imageNamed:highIconName];
+        }
+        
     }else {
         // 设置右边cell的数据
         cell = [WXRightCell rightCellWithTableView:tableView];
@@ -95,14 +114,16 @@
         self.subTitles = [self.dataSource lrTableView:self subTitleInLeftRow:indexPath.row];
         // 3.刷新右边rightTableView的数据
         [self.rightTableView reloadData];
-        // 4.调用选中的代理方法
+        // 4.调用左边leftTableView选中时调用的代理方法
         if ([self.delegate respondsToSelector:@selector(lrTableView:selectedLeftRow:)]) {
             [self.delegate lrTableView:self selectedLeftRow:indexPath.row];
         }
         
     }else {
-        // 右侧点击退出
-        NSLog(@"点击了rightTableView: %ld. %@", indexPath.row, self.subTitles[indexPath.row]);
+        // 1.调用右边rightTableView选中时调用的代理方法
+        if ([self.delegate respondsToSelector:@selector(lrTableView:selectedLeftRow:selectedRightRow:)]) {
+            [self.delegate lrTableView:self selectedLeftRow:self.selectedLeftRow selectedRightRow:indexPath.row];
+        }
     }
 }
 

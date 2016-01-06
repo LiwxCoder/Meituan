@@ -28,6 +28,9 @@
 		D9FDF99F1C3CC58500458AAF /* gz.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9FDF99C1C3CC58500458AAF /* gz.plist */; };
 		D9FDF9A01C3CC58500458AAF /* sorts.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9FDF99D1C3CC58500458AAF /* sorts.plist */; };
 		D9FDF9A31C3CD2DF00458AAF /* WXCategoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FDF9A21C3CD2DF00458AAF /* WXCategoryItem.m */; };
+		D9FDF9A61C3CED2D00458AAF /* WXConst.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FDF9A51C3CED2D00458AAF /* WXConst.m */; };
+		D9FDF9A91C3CF58400458AAF /* WXDistrictItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FDF9A81C3CF58400458AAF /* WXDistrictItem.m */; };
+		D9FDF9AC1C3CF5CB00458AAF /* WXDistrictController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FDF9AB1C3CF5CB00458AAF /* WXDistrictController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +89,12 @@
 		D9FDF99D1C3CC58500458AAF /* sorts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sorts.plist; sourceTree = "<group>"; };
 		D9FDF9A11C3CD2DF00458AAF /* WXCategoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXCategoryItem.h; sourceTree = "<group>"; };
 		D9FDF9A21C3CD2DF00458AAF /* WXCategoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXCategoryItem.m; sourceTree = "<group>"; };
+		D9FDF9A41C3CED2D00458AAF /* WXConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXConst.h; sourceTree = "<group>"; };
+		D9FDF9A51C3CED2D00458AAF /* WXConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXConst.m; sourceTree = "<group>"; };
+		D9FDF9A71C3CF58400458AAF /* WXDistrictItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXDistrictItem.h; sourceTree = "<group>"; };
+		D9FDF9A81C3CF58400458AAF /* WXDistrictItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXDistrictItem.m; sourceTree = "<group>"; };
+		D9FDF9AA1C3CF5CB00458AAF /* WXDistrictController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXDistrictController.h; sourceTree = "<group>"; };
+		D9FDF9AB1C3CF5CB00458AAF /* WXDistrictController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXDistrictController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +221,8 @@
 				D9FDF9851C3CA2A800458AAF /* WXNavViewController.m */,
 				D9FDF98C1C3CB0DD00458AAF /* WXCategoryController.h */,
 				D9FDF98D1C3CB0DD00458AAF /* WXCategoryController.m */,
+				D9FDF9AA1C3CF5CB00458AAF /* WXDistrictController.h */,
+				D9FDF9AB1C3CF5CB00458AAF /* WXDistrictController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -221,6 +232,8 @@
 			children = (
 				D9FDF9A11C3CD2DF00458AAF /* WXCategoryItem.h */,
 				D9FDF9A21C3CD2DF00458AAF /* WXCategoryItem.m */,
+				D9FDF9A71C3CF58400458AAF /* WXDistrictItem.h */,
+				D9FDF9A81C3CF58400458AAF /* WXDistrictItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -231,6 +244,8 @@
 				D9FDF97B1C3CA1C700458AAF /* AppDelegate.h */,
 				D9FDF97C1C3CA1C700458AAF /* AppDelegate.m */,
 				D9FDF97D1C3CA1C700458AAF /* main.m */,
+				D9FDF9A41C3CED2D00458AAF /* WXConst.h */,
+				D9FDF9A51C3CED2D00458AAF /* WXConst.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -449,7 +464,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9FDF9A91C3CF58400458AAF /* WXDistrictItem.m in Sources */,
 				D9FDF9801C3CA1C700458AAF /* main.m in Sources */,
+				D9FDF9AC1C3CF5CB00458AAF /* WXDistrictController.m in Sources */,
+				D9FDF9A61C3CED2D00458AAF /* WXConst.m in Sources */,
 				D9FDF9961C3CC24600458AAF /* WXLeftCell.m in Sources */,
 				D9FDF9891C3CA4E100458AAF /* WXTopView.m in Sources */,
 				D9FDF97F1C3CA1C700458AAF /* AppDelegate.m in Sources */,
