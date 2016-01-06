@@ -20,7 +20,7 @@
 ### 导航条背景
 - 自定义导航条
 - 统一设置导航条背景,`appearanceWhenContainedInInstancesOfClasses`方法实现
-```objectivec
+```objc
 // SINGLE: 统一设置导航条背景
 + (void)initialize
 {
